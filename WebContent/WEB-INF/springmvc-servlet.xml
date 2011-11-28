@@ -4,12 +4,38 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
 	<bean name="/hello_world.html" class="springmvc.web.HelloWorldController" />
-	<bean name="/list_cars.html" class="springmvc.web.CarListController" />
+	
+	<bean id="carManager" class="springmvc.service.CarManager">
+		<property name="carList">
+			<list>
+				<ref bean="car1"/>
+				<ref bean="car2"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="brandManager" class="springmvc.service.BrandManager">
+		<property name="brandList">
+			<list>
+				<ref bean="brand1"/>
+				<ref bean="brand2"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean name="/list_cars.html" class="springmvc.web.CarListController">
+		<property name="carManager" ref="carManager"/>
+	</bean>
+	
 	<bean name="/new_car.html" class="springmvc.web.CarNewController">
 		<property name="commandClass" value="springmvc.model.Car"/>
 		<property name="formView" value="carNew"/>
 		<property name="successView" value="list_cars.html"/>
+			<property name="validator">
+			<bean class="springmvc.validator.CarValidator"/>
+		</property>
 	</bean>
+	
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass"

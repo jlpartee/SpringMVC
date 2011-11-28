@@ -11,7 +11,7 @@ public class CarManager {
 
 	private static List<Car> carList;
 	
-	static {
+	public CarManager() {
 		Brand brand1 = new Brand();
 		brand1.setId((long)1);
 		brand1.setName("Mercedes");

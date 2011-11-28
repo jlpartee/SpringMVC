@@ -10,13 +10,21 @@ import springmvc.service.CarManager;
 
 public class CarListController implements Controller {
 	
+	private CarManager carManager;
+	
 	public ModelAndView handleRequest(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
-		
-		CarManager carManager = new CarManager();
 		
 		ModelAndView modelAndView = new ModelAndView("carList");
 		modelAndView.addObject("carList", carManager.getCarList());
 		
 		return modelAndView;
+ 	 }
+	
+	public CarManager getCarManager() {
+		return carManager;
+	}
+	
+	public void setCarManager(CarManager carManager) {
+		this.carManager = carManager;
 	}
 }
